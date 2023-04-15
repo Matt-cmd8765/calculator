@@ -22,164 +22,143 @@ function operate (a,b,op) {
     if (op === '-') {
        return subtract(a,b);
     };
-    if (op === '*') {
+    if (op === 'x') {
         return multiply(a,b);
     };
-    if(op === '/') {
+    if(op === '÷') {
         return divide(a,b);
     };
 }
 
-// Test of operations
-// let num1 = 12;
-// let num2 = 6;
-// let sign = '/';
+// All the numbers and operators go in the array
+let array = [];
+// reference screen element
+const screen = document.getElementById('screen');
 
-
-// let result = operate(num1, num2, sign);
-// console.log(result);
-
-const array = [];
-
-// one button
-const one = document.getElementById('one');
-one.addEventListener('click', () => {
-    const screen = document.getElementById('screen');
-    array.push(1);
+//function to display the numbers on the screen
+function display() {
     let display = array.join('');
     screen.textContent = display;
-    return parseInt(display);
+}
+
+// number buttons
+const one = document.getElementById('one');
+one.addEventListener('click', () => {
+    array.push(1);
+    display();
 });
 
 const two = document.getElementById('two');
 two.addEventListener('click', () => {
-    const screen = document.getElementById('screen');
     array.push(2);
-    let display = array.join('');
-    screen.textContent = display;
-    return parseInt(display);
+    display();
 });
 
 const three = document.getElementById('three');
 three.addEventListener('click', () => {
-    const screen = document.getElementById('screen');
     array.push(3);
-    let display = array.join('');
-    screen.textContent = display;
-    return parseInt(display);
+    display();
 });
 
 const four = document.getElementById('four');
 four.addEventListener('click', () => {
-    const screen = document.getElementById('screen');
     array.push(4);
-    let display = array.join('');
-    screen.textContent = display;
-    return parseInt(display);
+    display();
 });
 
 const five = document.getElementById('five');
 five.addEventListener('click', () => {
-    const screen = document.getElementById('screen');
     array.push(5);
-    let display = array.join('');
-    screen.textContent = display;
-    return parseInt(display);
+    display();
 });
 
 const six = document.getElementById('six');
 six.addEventListener('click', () => {
-    const screen = document.getElementById('screen');
     array.push(6);
-    let display = array.join('');
-    screen.textContent = display;
-    return parseInt(display);
+    display();
 });
 
 const seven = document.getElementById('seven');
 seven.addEventListener('click', () => {
-    const screen = document.getElementById('screen');
     array.push(7);
-    let display = array.join('');
-    screen.textContent = display;
-    return parseInt(display);
+    display();
 });
 
 const eight = document.getElementById('eight');
 eight.addEventListener('click', () => {
-    const screen = document.getElementById('screen');
-    array.push(8);
-    let display = array.join('');
-    screen.textContent = display;
-    return parseInt(display);
+    array.push(8);    
+    display();
 });
 
 const nine = document.getElementById('nine');
 nine.addEventListener('click', () => {
-    const screen = document.getElementById('screen');
     array.push(9);
-    let display = array.join('');
-    screen.textContent = display;
-    return parseInt(display);
+    display();
 });
 
 const zero = document.getElementById('zero');
 zero.addEventListener('click', () => {
-    const screen = document.getElementById('screen');
     array.push(0);
-    let display = array.join('');
-    screen.textContent = display;
-    return parseInt(display);
+    display();
 });
 
+// Operator buttons
 const plus = document.getElementById('plus');
 plus.addEventListener('click', () => {
-    const screen = document.getElementById('screen');
     array.push('+');
-    let display = array.join('');
-    screen.textContent = display;
+    display();
 });
+
+const minus = document.getElementById('minus');
+minus.addEventListener('click', () => {
+    array.push('-');
+    display();
+});
+
+const division = document.getElementById('division');
+division.addEventListener('click', () => {
+    array.push('÷');
+    display();
+});
+
+const multiplication = document.getElementById('multiplication');
+multiplication.addEventListener('click', () => {
+    array.push('x');
+    display();
+});
+
+//Other buttons
+const clear = document.getElementById('clear');
+clear.addEventListener('click', () => {
+    array = [];
+    display();
+});
+
+const backspace = document.getElementById('backspace');
+backspace.addEventListener('click', () => {
+    array.splice(array.length-1,1);
+    display();
+});
+
+const dot = document.getElementById('dot');
+dot.addEventListener('click', () => {
+    array.push('.');
+    display();
+})
 
 const equals = document.getElementById('equals');
 equals.addEventListener('click', () => {
-    const screen = document.getElementById('screen');
+    const numFinder = array.findIndex(index => index === '+' || index === '-' || index === 'x' || index === '÷');
+    const ops = array.find(thing => thing === '+' || thing === '-' || thing === 'x' || thing === '÷');
     const secondNum = array.findLastIndex((item) => typeof item === "number");
-    const addFinder = array.findIndex(index => index === '+');
-    let numA = parseInt(array.slice(0,addFinder).join(''));
-    let numB = parseInt(array.slice(addFinder, secondNum+1).join(''));
+    let numA = parseInt(array.slice(0,numFinder).join(''));
+    let numB = parseInt(array.slice(numFinder+1, secondNum+1).join(''));
+    console.log(array);
     console.log(numA);
     console.log(numB);
-    screen.textContent = add(numA, numB);
+    let result = operate(numA, numB, ops);
+    screen.textContent = Math.round((result + Number.EPSILON) * 100) / 100;
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // in case you need to come back to this. 
