@@ -52,6 +52,11 @@ h1 {
     background-color: #38761d;
 }
 
+#clear {
+    flex-grow: 1;
+    border-radius: 19%;
+}
+
 button {
     border-radius: 50%;
     border: none;
