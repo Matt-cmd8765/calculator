@@ -146,21 +146,52 @@ dot.addEventListener('click', () => {
     display();
 })
 
+function findOperators () {
+    return array.findIndex(index => index === '+' || index === '-' || index === 'x' || index === '÷');
+}
+
 const equals = document.getElementById('equals');
+const audio = new Audio('Cowabunga.mp3');
 equals.addEventListener('click', () => {
-    const numFinder = array.findIndex(index => index === '+' || index === '-' || index === 'x' || index === '÷');
-    const ops = array.find(thing => thing === '+' || thing === '-' || thing === 'x' || thing === '÷');
-    const secondNum = array.findLastIndex((item) => typeof item === "number");
-    let numA = parseInt(array.slice(0,numFinder).join(''));
-    let numB = parseInt(array.slice(numFinder+1, secondNum+1).join(''));
-    console.log(array);
-    console.log(numA);
-    console.log(numB);
-    let result = operate(numA, numB, ops);
-    screen.textContent = Math.round((result + Number.EPSILON) * 100) / 100;
+    audio.play();
+    let operatorCount = 0; 
+
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] === '+' || array[i] === '-' || array[i] === 'x' || array[i] === '÷') {
+            operatorCount++;
+        }
+    }
+    for (let i=0; i < operatorCount; i++) {
+        let ops = array.find(thing => thing === '+' || thing === '-' || thing === 'x' || thing === '÷');
+        let numFinder = findOperators();
+        let numA = parseFloat(array.slice(0,numFinder).join(''));
+        console.log(array);
+        array.splice(0,numFinder+1);
+        console.log(array);
+        let numFinder2 = findOperators();
+        console.log('numfinder2: ' +numFinder2);
+        let numB = 0;
+        if (numFinder2 === -1) {
+            numB = parseFloat(array.join(''));
+        }
+        else {
+            numB = parseFloat(array.slice(0,numFinder2).join(''));
+        }
+        console.log('numA: ' + numA);
+        console.log('numB: ' + numB);
+        array.splice(0,numFinder2);
+        console.log(array);
+        let result = operate(numA, numB, ops);
+        array.unshift(result);
+        console.log(array);
+        screen.textContent = Math.round((result + Number.EPSILON) * 100000) / 100000;
+    }
 });
 
+    // const secondNum = array.findLastIndex(index => index === '+' || index === '-' || index === 'x' || index === '÷');
+        // numB = parseFloat(array.slice(numFinder+1, secondNum).join(''));
 
+    // numB = parseFloat(array.slice(numFinder+1, secondNum+1).join(''));
 // in case you need to come back to this. 
 // function add (arr) {
 //     const sum = arr.reduce((total, num) => {
