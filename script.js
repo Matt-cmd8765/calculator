@@ -197,9 +197,9 @@ percentage.addEventListener('click', () => {
     document.getElementById('screen').textContent = result + '%';
 })
 
-
 // equals function
 const equals = document.getElementById('equals');
+
 //audio file for Cowabunga
 const audio = new Audio('Cowabunga.mp3');
 equals.addEventListener('click', () => {
@@ -226,6 +226,10 @@ equals.addEventListener('click', () => {
             let numFinder = mainArray.findIndex(index => index === 'x' || index === '÷');
             let numA = parseFloat(mainArray.slice(numFinder-1));
             let numB = parseFloat(mainArray.slice(numFinder+1));
+            if (numA === 0 || numB === 0) {
+                screen.textContent = 'BOGUS!';
+                return 1;
+            }
             let result = operate(numA, numB, multDiv);
             mainArray.splice(numFinder-1, 3, result);
             

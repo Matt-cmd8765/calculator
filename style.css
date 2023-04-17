@@ -4,7 +4,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0;
+    padding: 0;
     background-image: url(./images/turtles.jpg);
+}
+
+body.footer {
+    align-items: stretch;
 }
 
 h1 {
@@ -78,3 +84,13 @@ button {
     align-items: center;
     align-content: center;
 }
+
+    .footer {
+        color: #f9faf8;
+        background-color: #3d85c6;
+        font-weight: bold;
+        align-self: stretch;
+        text-align: center;
+        padding: 3vh;
+        font-family: 'Courier New', Courier, monospace;
+    }
